@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Motel</title>
+<link rel="stylesheet" type="text/css"
+	href="/materialize-v1.0.0/materialize/css/materialize.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+</head>
+<body>
+	<header th:replace="fragments/padrao :: cabecalho"></header>
+	
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Descrição</th>
+				<th>CEP</th>
+				<th>Endereço</th>
+				<th>Número</th>
+				<th>Bairro</th>
+				<th>Cidade</th>
+				<th>Estado</th>
+				<th>Evento</th>
+				<th>Horário</th>
+				<th>Telefone</th>
+				<th>Preço</th>
+				<th>Estacionamento</th>
+				<th>Banheira</th>
+				<th>Brinquedos</th>
+				<th>Espelho no Teto</th>
+				<th>Hidromassagem</th>
+				<th>Pole Dance</th>
+				<th>Café da Manhã</th>
+				<th>Temático</th>
+				<th>Formas Pagamento</th>
+				<th>Alterar</th>
+				<th>Excluir</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="motel:${moteis}">
+				<td th:text="${motel.id}" />
+				<td th:text="${motel.nome}" />
+				<td th:text="${motel.descricao}" />
+				<td th:text="${motel.cep}" />
+				<td th:text="${motel.endereco}" />
+				<td th:text="${motel.numero}" />
+				<td th:text="${motel.bairro}" />
+				<td th:text="${motel.cidade}" />
+				<td th:text="${motel.estado}" />
+				<td th:text="${motel.evento}" />
+				<td th:text="${motel.horario}" />
+				<td th:text="${motel.telefone}" />
+				<td th:text="${motel.preco}" />
+				<td th:text="${motel.estacionamento}" />
+				<td th:text="${motel.banheira}" />
+				<td th:text="${motel.brinquedo}" />
+				<td th:text="${motel.espelhoTeto}" />
+				<td th:text="${motel.hidromassagem}" />
+				<td th:text="${motel.poleDance}" />
+				<td th:text="${motel.cafeDaManha}" />
+				<td th:text="${motel.tematico}" />
+				<td th:text="${motel.formasPagamento}" />
+				<td><a th:attr="onclick=|return confirm('Deseja alterar o ID: ${motel.id}')|" th:href="@{/alterarMotel(id=${motel.id})}">Alterar</a></td>
+				<td><a th:attr="onclick=|return confirm('Deseja excluir o ID: ${motel.id}')|" th:href="@{/excluirMotel(id=${motel.id})}">Excluir</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul class="pagination">
+		<li th:class="${pagAtual == 1 ? 'disabled' : 'waves-effect'}"><a th:href="${pagAtual > 1 ? pagAtual -1 : '#'}"><i class="material-icons">chevron_left</i></a></li>
+		<li th:class="${pagAtual == p ? 'active  purple': 'waves-effect'}" th:each="p:${numPaginas}"><a th:href="${p}"><span th:text="${p}"></span></a></li>
+		<li class="${pagAtual == totalPags ? 'disabled'  : 'waves-effect'}"><a th:href="${pagAtual < totalPags ? pagAtual +1 : '#'}"><i class="material-icons">chevron_right</i></a></li>				
+	</ul>
+	
+	
+	
+	
+	
+	<footer th:replace="fragments/padrao :: rodape"></footer>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>	
+			<script src="/materialize-v1.0.0/materialize/js/materialize.min.js"></script>
+				<script>
+				$(document).ready(function(){
+				    $('select').formSelect();
+				  });
+				</script>
+</body>
+</html>

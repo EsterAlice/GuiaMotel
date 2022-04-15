@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro do Tipo de Motel</title>
+<link rel="stylesheet" type ="text/css" href="estilo.css">
+<link rel="stylesheet" type="text/css" href="/materialize-v1.0.0/materialize/css/materialize.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+	<header th:replace="fragments/padrao :: cabecalho"></header>
+	
+	<form action="salvarT" method="post">
+	
+	<input type="hidden" name="id" th:value="${tipo?.id}" />
+			<div class="login-wrap">
+	<div class="login-html"/>
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Cadastro</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Tipo Motel</label>
+		<div class="login-form"/>
+			<div class="sign-in-htm">
+				<div class="group">
+					<label for="user" class="label">Nome:</label>
+					<input name ="nome" id="nome" type="text" class="input" th:value="${tipo?.nome}" >
+				</div>
+				<div class="group">
+					<label for="user" class="label">Descrição:</label>
+					<input name ="descricao" id="descricao" type="text" class="input" th:value="${tipo?.descricao}">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Palavra Chave:</label>
+					<input name ="palavraChave" id="palavraChave" type="text" class="input" th:value="${tipo?.palavraChave}">
+				</div>
+				
+				<div class="group">
+					<input type="submit" class="button" value="Salvar">
+				</div>
+				
+				 <div th:replace="fragments/mensagem"/>
+				 
+
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<a href="#forgot"> Dev Ester Alice</a>
+				</div>
+			</div>
+			
+			
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="/materialize-v1.0.0/materialize/css/materialize.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+</head>
+<body>
+	<header th:replace="fragments/padrao :: cabecalho"></header>
+
+	<form action="salvarM" method="post" enctype="multipart/form-data">
+
+		<input type="hidden" name="id" th:value="${motel?.id}" />
+
+		<div class="container">
+
+			<div class="sign-in-htm">
+				<div class="input-field col s4">
+			<i class="material-icons prefix">edit</i> <input type="text"
+			id="nome" class="validate" name="nome" th:value="${motel?.nome}"> <label
+			for="nome
+			"></label>
+			</div>	
+				<div class="group">
+					<label for="user" class="label">Descrição:</label> <input
+						name="descricao" id="descricao" type="text" class="input"
+						th:value="${motel?.descricao}">
+
+				</div>
+				<div class="row">
+					<div class="group col s2">
+						<label for="user" class="label">CEP:</label> <input name="cep"
+							id="cep" type="text" class="input" th:value="${motel?.cep}">
+					</div>
+					<div class="group col s8">
+						<label for="pass" class="label">Endereço:</label> <input
+							name="endereco" id="rua" type="text" class="input"
+							th:value="${motel?.endereco}" readonly>
+					</div>
+					<div class="input-field col s4">
+			<i class="material-icons prefix">home</i> <input type="text"
+			id="numero" class="validate" name="numero" th:value="${motel?.numero}"> <label
+			for="numero">Nº</label>
+			</div>	
+				</div>
+				<div class="row">
+					<div class="group col s8">
+						<label for="pass" class="label">Bairro:</label> <input
+							name="bairro" id="bairro" type="text" class="input"
+							th:value="${motel?.bairro}" readonly>
+					</div>
+					<div class="group col s2">
+						<label for="pass" class="label">Cidade:</label> <input
+							name="cidade" id="cidade" type="text" class="input"
+							th:value="${motel?.cidade}" readonly>
+					</div>
+					<div class="group col s2">
+						<label for="pass" class="label">Estado:</label> <input name="estado"
+							id="uf" type="text" class="input" th:value="${motel?.estado}"
+							readonly>
+					</div>
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Evento:</label> <input
+						name="evento" id="evento" type="text" class="input"
+						th:value="${motel?.evento}">
+				</div>
+				<div class="row">
+					<div class="group col s6">
+						<label for="pass" class="label">Horário:</label> <input
+							name="horario" id="horario" type="text" class="input"
+							th:value="${motel?.horario}">
+					</div>
+					<div class="group col s6">
+						<label for="pass" class="label">Telefone:</label> <input
+							name="telefone" id="telefone" type="text" class="input"
+							th:value="${motel?.telefone}">
+					</div>
+				</div>
+			</div>
+
+			<div class="group">
+				<p>
+					<label for="pass" class="label">Tipo de Motel:</label> <select
+						name="tipo.id">
+						<option value="" disabled selected>Escolha</option>
+						<option th:each="t: ${tipos}" th:text="${t.nome}"
+							th:value="${t.id}" th:selected="${t.id == motel?.tipo?.id}"></option>
+					</select>
+				</p>
+			</div>
+
+			<div class="row">
+				<div class="group col s6">
+					<label for="pass" class="label">Preço:</label> 
+					<p class="range-field">
+					<input name="preco" id="preco" type="range" class="input" min="50" max="1000" th:value="${motel?.preco}">
+					</p>
+				</div>
+
+				<div class="group col s6">
+					<label for="pass" class="label">Quantidades de Pessoas:</label> <input
+						name="qtdDePessoas" id="qtdDePessoas" type="text" class="input"
+						th:value="${motel?.qtdDePessoas}">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="group col s4">
+					<label for="pass" class="label">Estacionamento:</label> <input
+						name="estacionamento" id="estacionamento" type="radio"
+						class="input" >
+					<p>
+						<label> <input type="radio" name="estacionamento"
+							 th:checked="${motel?.estacionamento}" value="1"/> <span>Sim</span></label> <label> <input
+							type="radio" name="estacionamento"  th:checked="${motel?.estacionamento == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+
+				<div class="group col s4">
+					<label for="pass" class="label">Banheira:</label> <input
+						name="banheira" id="banheira" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="banheira"   th:checked="${motel?.banheira}" value="1"/>
+							<span>Sim</span></label> <label> <input type="radio"
+							name="banheira"   th:checked="${motel?.banheira == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+
+				<div class="group col s4">
+					<label for="pass" class="label">Brinquedos:</label> <input
+						name="brinquedo" id="brinquedo" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="brinquedo"  th:checked="${motel?.brinquedo}" value="1"/>
+							<span>Sim</span></label> <label> <input type="radio"
+							name="brinquedo"  th:checked="${motel?.brinquedo == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="group col s4">
+					<label for="pass" class="label">Abafador de som:</label> <input
+						name="abafadorSom" id="abafadorSom" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="abafadorSom"
+							 th:checked="${motel?.abafadorSom}" value="1"/> <span>Sim</span></label> <label> <input
+							type="radio" name="abafadorSom"  th:checked="${motel?.abafadorSom == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+
+				<div class="group col s4">
+					<label for="pass" class="label">Espelho no teto:</label> <input
+						name="espelhoTeto" id="espelhoTeto" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="espelhoTeto"
+							 th:checked="${motel?.espelhoTeto}" value="1"/> <span>Sim</span></label> <label> <input
+							type="radio" name="espelhoTeto"  th:checked="${motel?.espelhoTeto == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+
+				<div class="group col s4">
+					<label for="pass" class="label">Hidromassagem:</label> <input
+						name="hidromassagem" id="hidromassagem" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="hidromassagem"
+							 th:checked="${motel?.hidromassagem}" value="1"/> <span>Sim</span></label> <label> <input
+							type="radio" name="hidromassagem"  th:checked="${motel?.hidromassagem == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="group col s4">
+					<label for="pass" class="label">Saúna:</label> <input name="sauna"
+						id="sauna" type="radio" class="input" >
+					<p>
+						<label> <input type="radio" name="sauna"  th:checked="${motel?.sauna}" value="1"/>
+							<span>Sim</span></label> <label> <input type="radio" name="sauna"
+							 th:checked="${motel?.sauna == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+
+				<div class="group col s4">
+					<label for="pass" class="label">Piscina:</label> <input
+						name="piscina" id="piscina" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="piscina"  th:checked="${motel?.piscina}" value="1"/>
+							<span>Sim</span></label> <label> <input type="radio"
+							name="piscina"  th:checked="${motel?.piscina == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+
+				<div class="group col s4">
+					<label for="pass" class="label">Pole dance:</label> <input
+						name="poleDance" id="poleDance" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="poleDance"  th:checked="${motel?.poleDance}" value="1"/>
+							<span>Sim</span></label> <label> <input type="radio"
+							name="poleDance"  th:checked="${motel?.poleDance == false}" value="0"/> <span>Não</span></label>
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="group col s4">
+					<label for="pass" class="label">Preservativo:</label> <input
+						name="preservativo" id="preservativo" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="preservativo"
+							value="1" th:checked="${motel?.preservativo}" /> <span>Sim</span></label> <label> <input
+							type="radio" name="preservativo" value="0" th:checked="${motel?.preservativo == false}" /> <span>Não</span></label>
+					</p>
+				</div>
+
+				<div class="group col s4">
+					<label for="pass" class="label">Acessórios de Mulher:</label> <input
+						name="acessorioMulher" id="acessorioMulher" type="radio"
+						class="input" >
+					<p>
+						<label> <input type="radio" name="acessorioMulher" value="1" th:checked="${motel?.acessorioMulher}" />
+							<span>Sim</span></label> <label> <input type="radio"
+							name="acessorioMulher" value="0" th:checked="${motel?.acessorioMulher == false}" /> <span>Não</span></label>
+					</p>
+				</div>
+
+
+				<div class="group col s4">
+					<label for="pass" class="label">Café da Manhã:</label> <input
+						name="cafeDaManha" id="cafeDaManha" type="radio" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="cafeDaManha"
+							value="1" th:checked="${motel?.cafeDaManha}" /> <span>Sim</span></label> <label> <input
+							type="radio" name="cafeDaManha" value="0" th:checked="${motel?.cafeDaManha == false}" /> <span>Não</span></label>
+					</p>
+				</div>
+			</div>
+
+			
+				<div class="group ">
+					<label for="pass" class="label">Temático:</label> <input
+						name="tematico" id="tematico" type="checkbox" class="input"
+						>
+					<p>
+						<label> <input type="radio" name="tematico" value="1" th:checked="${motel?.tematico}" />
+							<span>Sim</span></label> <label> <input type="radio"
+							name="tematico" value="0" th:checked="${motel?.tematico == false}" /> <span>Não</span></label>
+					</p>
+				</div>
+
+				
+	
+					<label for="pass" class="label">Formas Pagamento:</label> <input
+						name="formasPagamento" id="formasPagamento" type="checkbox"
+						class="input" >
+
+					<div class="col s4">
+						<p>
+							<label> <input type="checkbox" name="formasPagamento" th:checked="${motel?.formasPagamento}" /><span>Dinheiro</span>
+							</label>
+						</p>
+					</div>
+				
+
+				<div class="col s4">
+					<label> <input type="checkbox" name="formasPagamento" th:checked="${motel?.formasPagamento}"/><span>Crédito</span>
+					</label>
+				</div>
+
+				<div class="col s4">
+					<label> <input type="checkbox" name="formasPagamento" th:checked="${motel?.formasPagamento}"/><span>Débito</span>
+					</label>
+				</div>
+				</div>
+			
+			<div class="group">
+				<p>
+					<label for="pass" class="label">Fotos:</label> <input
+						name="fileFotos" id="fileFotos" type="file" multiple
+						accept="image/*" class="input" >
+				<p>
+			</div>
+			<input type="hidden" th:value="${motel?.fotos}" name="fotos"/>
+			<div th:if="${motel?.fotos?.length > 0}">
+			<h6>Fotos Cadastrada</h6>
+			<div>
+				<ul>
+					<li th:each="foto, i : ${motel?.verFotos()}">
+						<a th:href="${foto}" target="_blank" ><img th:src="${foto}" width= 20%></a>
+						<a th:href="@{/excluirFotos(idRest=${motel?.id},numFoto=${i.index})}"><i class="material-icons">Delete_Forever</i></a>
+					</li>
+				</ul>
+			
+			</div>
+			
+			</div>
+
+			<div class="group">
+				<input type="submit" class="button" value="Salvar">
+			</div>
+
+			<div th:replace="fragments/mensagem" />
+
+
+			<div class="hr"></div>
+			<div class="foot-lnk">
+				<a href="#forgot"> Dev Ester Alice</a>
+			</div>
+		</div>
+		
+
+	</form>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="/materialize-v1.0.0/materialize/js/materialize.min.js"></script>
+	
+</body>
+
+
+
+<script>
+	$(document).ready(
+			function() {
+				
+				$('select').formSelect();
+
+				function limpa_formulário_cep() {
+
+					$("#rua").val("");
+					$("#bairro").val("");
+					$("#cidade").val("");
+					$("#uf").val("");
+					$("#ibge").val("");
+				}
+
+				$("#cep").blur(
+						function() {
+
+							const cep = $(this).val().replace(/\D/g, '');
+
+							if (cep != "") {
+
+								const validacep = /^[0-9]{8}$/;
+
+								if (validacep.test(cep)) {
+
+									$("#rua").val("carregando...");
+									$("#bairro").val("carregando...");
+									$("#cidade").val("carregando...");
+									$("#uf").val("carregando...");
+									$("#ibge").val("carregando...");
+
+									$.getJSON("https://viacep.com.br/ws/" + cep
+											+ "/json/?callback=?", function(
+											dados) {
+
+										if (!("erro" in dados)) {
+
+											$("#rua").val(dados.logradouro);
+											$("#bairro").val(dados.bairro);
+											$("#cidade").val(dados.localidade);
+											$("#uf").val(dados.uf);
+											$("#ibge").val(dados.ibge);
+										} else {
+
+											limpa_formulário_cep();
+											alert("CEP não encontrado.");
+										}
+									});
+								} else {
+
+									limpa_formulário_cep();
+									alert("Formato de CEP inválido.");
+								}
+							} else {
+								limpa_formulário_cep();
+							}
+						});
+			});
+</script>
+
+
+</html>
