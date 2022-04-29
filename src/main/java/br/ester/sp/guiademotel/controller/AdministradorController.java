@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.api.Http;
 
+import br.ester.sp.guiademotel.annotation.Publico;
 import br.ester.sp.guiademotel.model.Administrador;
 import br.ester.sp.guiademotel.repository.AdminRepository;
 import br.ester.sp.guiademotel.util.HashUtil;
@@ -113,6 +114,7 @@ public class AdministradorController {
 		repository.deleteById(id);
 		return "redirect:listaAdmin/1";
 	}
+	@Publico
 	@RequestMapping("login")
 	public String login(Administrador admLogin, RedirectAttributes attr, HttpSession session) {
 		// buscar o administrador no Banco
@@ -126,5 +128,12 @@ public class AdministradorController {
 			session.setAttribute("usuarioLogado", admin);
 			return "redirect:/listaMotel/1";
 		}
+	}
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		//inválida a sessão
+		session.invalidate();
+		//voltar para a página inicial
+		return "redirect:/";
 	}
 }
