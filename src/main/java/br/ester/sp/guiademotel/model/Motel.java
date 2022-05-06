@@ -1,12 +1,16 @@
 package br.ester.sp.guiademotel.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import br.ester.sp.guiademotel.Avaliacao;
 import lombok.Data;
 
 @Entity
@@ -48,6 +52,8 @@ public class Motel {
 	private boolean poleDance;
 	private boolean preservativo;
 	private boolean acessorioMulher;
+	@OneToMany(mappedBy = "motel")
+	private List<Avaliacao> avaliacoes;
 	
 	// retorna as fotos na forma de vetor de String
 	public String[] verFotos() {
